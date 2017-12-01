@@ -1,0 +1,7 @@
+*.log
+*.retry
+roles/*
+.ssh-config
+.vagrant
+ansible.cfg
+hosts
