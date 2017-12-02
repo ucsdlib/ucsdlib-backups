@@ -15,7 +15,7 @@
     - name: Clone or Update Repositories
       become_user: "{{ backups_user }}"
       expect:
-        command: /home/vagrant/github-backup/bin/github-backup --token {{ token|quote}} {{ username|quote }} {{ backups_path|quote }}
+        command: "{{ backups_repo_dest }}/bin/github-backup --wikis --token {{ token | quote}} {{ username | quote }} {{ backups_path | quote }}"
         timeout: 3600
         responses:
           Username*: "{{ username | urlencode }}"
