@@ -15,8 +15,8 @@
     - name: Clone or Update Repositories
       become_user: "{{ backups_user }}"
       expect:
-        command: "{{ backups_repo_dest }}/bin/github-backup --wikis --token {{ token | quote}} {{ username | quote }} {{ backups_path | quote }}"
+        command: "{{ backups_repo_dest }}/bin/github-backup --wikis --token {{ backups_github_token | quote}} {{ backups_github_username | quote }} {{ backups_path | quote }}"
         timeout: 3600
         responses:
-          Username*: "{{ username | urlencode }}"
-          Password*: "{{ token | urlencode }}"
+          Username*: "{{ backups_github_username | urlencode }}"
+          Password*: "{{ backups_github_token | urlencode }}"
