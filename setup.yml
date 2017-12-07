@@ -2,8 +2,6 @@
 - name: Configure Github backup service
   hosts: lib-backups
 
-  vars:
-    - do_update: false
   vars_files:
     - vars/rbenv.yml
     - vars/backup.yml
@@ -11,14 +9,6 @@
   roles:
     - { role: geerlingguy.repo-epel, become: true }
     - { role: zzet.rbenv, become: true }
-
-  pre_tasks:
-    - name: Update System Packages
-      become: true
-      package:
-        name: '*'
-        state: latest
-      when: do_update
 
   post_tasks:
     - name: Install dependencies
