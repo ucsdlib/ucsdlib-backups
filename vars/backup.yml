@@ -1,6 +1,7 @@
 ---
 backups_repo_url: https://github.com/ucsdlib/github-backup.git
 backups_repo_dest: /home/vagrant/github-backup
+backups_repo_version: v0.10.1
 backups_user: 'vagrant'
 backups_path: '/home/vagrant' # TODO: temporary, we need an actual path..
 backups_dependencies:

@@ -28,12 +28,13 @@
         state: present
       with_items: "{{ backups_dependencies }}"
 
-    - name: Install Github Backup gem
+    - name: Clone Github Backup repository
       become: false
       become_user: "{{ backups_user }}"
       git:
         repo: "{{ backups_repo_url }}"
         dest: "{{ backups_repo_dest }}"
+        version: "{{ backups_repo_version }}"
 
     - name: Bundle install gem dependencies
       become: false
