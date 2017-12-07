@@ -1,8 +1,6 @@
 ---
 - name: Configure Github backup service
   hosts: lib-backups
-  gather_facts: true
-  become: true
 
   vars:
     - do_update: false
@@ -11,11 +9,12 @@
     - vars/backup.yml
 
   roles:
-    - role: geerlingguy.repo-epel
-    - role: zzet.rbenv
+    - { role: geerlingguy.repo-epel, become: true }
+    - { role: zzet.rbenv, become: true }
 
   pre_tasks:
     - name: Update System Packages
+      become: true
       package:
         name: '*'
         state: latest
@@ -23,27 +22,25 @@
 
   post_tasks:
     - name: Install dependencies
+      become: true
       package:
         name: "{{ item }}"
         state: present
       with_items: "{{ backups_dependencies }}"
 
     - name: Clone Github Backup repository
-      become: false
-      become_user: "{{ backups_user }}"
       git:
         repo: "{{ backups_repo_url }}"
         dest: "{{ backups_repo_dest }}"
         version: "{{ backups_repo_version }}"
 
     - name: Bundle install gem dependencies
-      become: false
-      become_user: "{{ backups_user }}"
       bundler:
         state: present
         gemfile: "{{ backups_repo_dest }}/Gemfile"
 
     - name: Install pexpect via pip
+      become: true
       pip:
         name: pexpect
         version: 4.2

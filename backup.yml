@@ -1,7 +1,6 @@
 ---
 - name: Backup ucsdlib GitHub repositories
   hosts: lib-backups
-  become: false
 
   vars_files:
     - vars/github.yml
@@ -9,11 +8,9 @@
 
   tasks:
     - name: Configure Git to cache credentials
-      become_user: "{{ backups_user }}"
       command: git config --global credential.helper 'cache --timeout=3600'
 
     - name: Clone or Update Repositories
-      become_user: "{{ backups_user }}"
       expect:
         command: "{{ backups_repo_dest }}/bin/github-backup --wikis --token {{ backups_github_token | quote}} {{ backups_github_username | quote }} {{ backups_path | quote }}"
         timeout: 3600
