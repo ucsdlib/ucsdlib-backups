@@ -10,7 +10,7 @@
     - { role: geerlingguy.repo-epel, become: true }
     - { role: zzet.rbenv, become: true }
 
-  post_tasks:
+  tasks:
     - name: Install dependencies
       become: true
       package:
