@@ -18,16 +18,24 @@
         state: present
       with_items: "{{ backups_dependencies }}"
 
+    - name: Mount backup nfs share
+      mount:
+        fstype: nfs
+        state: mounted
+        src: "{{ backups_mount_point }}"
+        path: "{{ backups_path }}"
+        opts: "" # TODO
+
     - name: Clone Github Backup repository
       git:
         repo: "{{ backups_repo_url }}"
-        dest: "{{ backups_repo_dest }}"
+        dest: "{{ backups_repo_path }}"
         version: "{{ backups_repo_version }}"
 
     - name: Bundle install gem dependencies
       bundler:
         state: present
-        gemfile: "{{ backups_repo_dest }}/Gemfile"
+        gemfile: "{{ backups_repo_path }}/Gemfile"
 
     - name: Install pexpect via pip
       become: true

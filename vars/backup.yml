@@ -1,7 +1,8 @@
 ---
 backups_repo_url: https://github.com/ucsdlib/github-backup.git
-backups_repo_dest: /home/vagrant/github-backup
+backups_repo_path: "{{ ansible_env.HOME }}/github-backup"
 backups_repo_version: v0.10.1
-backups_path: '/home/vagrant' # TODO: temporary, we need an actual path..
+backups_mount_point: lib-lin-storage:/ifs/github-backups
+backups_path: "{{ ansible_env.HOME }}/backups"
 backups_dependencies:
   - python-pip
